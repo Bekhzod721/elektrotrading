@@ -1,0 +1,35 @@
+.container{
+  /* max-width: 1560px; */
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.dashboard{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: start;
+}
+
+.charts{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+
+.pieChartOne {
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
