@@ -1,9 +1,22 @@
 import React from "react";
 import './AdminSidebar.css'
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, redirect } from "react-router-dom";
 import Logo from "../../../assets/siteLogoBlue.png"
+import Login from "../login/Login";
+import { Button } from "react-bootstrap";
+import { red } from "@mui/material/colors";
+import {TbLogout2 } from "react-icons/tb"
+
+
 
 const AdminSidebar = ({ children }) => {
+
+  const handleLogout = () => {
+    localStorage.clear(); 
+    window.location.href = "login";
+
+  };
+  
   const menuItem = [
     {
       path: "/",
@@ -47,7 +60,7 @@ const AdminSidebar = ({ children }) => {
     },
     {
       path: "/AddFinishedProducts",
-      name: "Finished Product",
+      name: "Tayyor Tovarlar",
       icon: "",
     },
     {
@@ -60,6 +73,7 @@ const AdminSidebar = ({ children }) => {
       name: "Create User",
       icon: "",
     },
+
   ];
   return (
     <div >
@@ -76,6 +90,8 @@ const AdminSidebar = ({ children }) => {
                   </div>
               </NavLink>
             ))}
+
+            <Button onClick={handleLogout}  className="logout"> <TbLogout2/> Chiqish</Button>
           </div>
         </div>
 

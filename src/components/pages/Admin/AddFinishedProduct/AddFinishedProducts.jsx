@@ -40,8 +40,11 @@ const AddFinishedProduct = () => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
+
+  const [error, setError] = useState("")
+
   useEffect(() => {
-    fetch('http://api.etradingcrm.uz/api/Product/All')
+    fetch('https://api.etradingcrm.uz/api/Product/All')
       .then(response => response.json())
       .then(data => setProductst(data))
       .catch(error => console.log(error));
@@ -62,7 +65,7 @@ const AddFinishedProduct = () => {
 
   useEffect(() => {
     axios
-      .get("http://api.etradingcrm.uz/api/FinishedProduct")
+      .get("https://api.etradingcrm.uz/api/FinishedProduct")
       .then((res) => {
         const items = res.data;
         setItems(items);
@@ -116,7 +119,7 @@ const AddFinishedProduct = () => {
 
     try {
       const response = await fetch(
-        "http://api.etradingcrm.uz/api/FinishedProduct",
+        "https://api.etradingcrm.uz/api/FinishedProduct",
         {
           method: "POST",
           headers: {
@@ -127,15 +130,24 @@ const AddFinishedProduct = () => {
 
           body: JSON.stringify(inputData),
         }
-      );
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+      )
+      if (response.ok) {
+        handleRefreshClick();
+      } else {
+        throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+      }
+    } catch (err) {
+      setError(err.message);
     }
-    handleRefreshClick()
   };
+
+  const handleWarning = () => {
+    if (error) {
+      return <div className="warning">{error}</div>;
+    }
+    return null;
+  };
+
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
@@ -153,7 +165,7 @@ const AddFinishedProduct = () => {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://api.etradingcrm.uz/api/BSProduct/${selectedItem.id}`,
+        `https://api.etradingcrm.uz/api/BSProduct/${selectedItem.id}`,
         {
           method: "DELETE",
           headers: {
@@ -225,7 +237,7 @@ const AddFinishedProduct = () => {
       redirect: "follow",
     };
 
-    fetch("http://api.etradingcrm.uz/api/FinishedProduct", requestOptions)
+    fetch("https://api.etradingcrm.uz/api/FinishedProduct", requestOptions)
       .then((response) => response.text())
       .then(() => {
         setItems(updatedItems);
@@ -344,6 +356,7 @@ const AddFinishedProduct = () => {
               <button type="submit" className="modalFormBtn">
                 Save
               </button>
+              {handleWarning()}
             </form>
           </div>
         </div>

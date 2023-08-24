@@ -18,7 +18,7 @@ const AddEmployees = () => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    fetch("http://api.etradingcrm.uz/api/Employee/All");
+    fetch("https://api.etradingcrm.uz/api/Employee/All");
   }, []);
 
   const [items, setItems] = useState([]);
@@ -42,21 +42,21 @@ const AddEmployees = () => {
   const [lastName, setLastName] = useState("");
   const [passportId, setPassportId] = useState("");
 
+  const [error, setError] = useState("")
+
   const [ref, setRef] = useState("")
 
   const a = window.localStorage.token;
 
   useEffect(() => {
     axios
-      .get("http://api.etradingcrm.uz/api/Employee/All")
+      .get("https://api.etradingcrm.uz/api/Employee/All")
       .then((res) => {
         const items = res.data.filter((items) => items.isDeleted === false);
-        // console.log(res.data);
         setItems(items);
       })
       .catch((err) => console.log(err));
   }, []);
-  // API POST ADD Employee
 
   const handleRefreshClick = () => {
     setTimeout(() => {
@@ -93,7 +93,7 @@ const AddEmployees = () => {
     };
 
     try {
-      const response = await fetch("http://api.etradingcrm.uz/api/Employee", {
+      const response = await fetch("https://api.etradingcrm.uz/api/Employee", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${tokenn}`,
@@ -104,13 +104,23 @@ const AddEmployees = () => {
         body: JSON.stringify(inputData),
       });
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+      if (response.ok) {
+        handleRefreshClick();
+      } else {
+        throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+      }
+    } catch (err) {
+      setError(err.message);
     }
-    handleRefreshClick();
   };
+
+  const handleWarning = () => {
+    if (error) {
+      return <div className="warning">{error}</div>;
+    }
+    return null;
+  };
+
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -139,7 +149,7 @@ const AddEmployees = () => {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://api.etradingcrm.uz/api/Employee/${selectedItem.id}`,
+        `https://api.etradingcrm.uz/api/Employee/${selectedItem.id}`,
         {
           method: "DELETE",
           headers: {
@@ -156,7 +166,6 @@ const AddEmployees = () => {
 
         setShowModal(false);
       } else {
-        // Handle error response
         console.error(
           "Delete request failed:",
           response.status,
@@ -164,7 +173,6 @@ const AddEmployees = () => {
         );
       }
     } catch (error) {
-      // Handle fetch error
       console.error("Delete request error:", error);
     }
   };
@@ -233,7 +241,7 @@ const AddEmployees = () => {
       redirect: "follow",
     };
 
-    fetch("http://api.etradingcrm.uz/api/Employee/Update", requestOptions)
+    fetch("https://api.etradingcrm.uz/api/Employee/Update", requestOptions)
       .then((response) => response.text())
       .then(() => {
         setItems(updatedItems);
@@ -414,10 +422,10 @@ const AddEmployees = () => {
                   onChange={handleExperienceChange}
                 />
               </label>
-
               <button type="submit" className="modalFormBtn">
-                Save
+                Saved
               </button>
+              {handleWarning()}
             </form>
           </div>
         </div>
@@ -614,6 +622,7 @@ const AddEmployees = () => {
                 />
               </label>
 
+          
               <button className="modalFormBtn" onClick={handleSaveClick}>
                 Save
               </button>

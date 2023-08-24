@@ -16,12 +16,42 @@ const Pdp = () => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
+  const [image, setImage] = useState("");
+
   const tok = window.localStorage.token;
   const tokenn = tok.slice(1, tok.length - 1);
 
+
+
+
+
+// get image
+
+useEffect(() => {
+  const fetchImage = async () => {
+    try {
+      const response = await fetch(
+        `https://api.etradingcrm.uz/api/ProductPhoto/${id}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not OK");
+      }
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      setImage(imageUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  fetchImage();
+}, [id]);
+
+
+
+
+
   useEffect(() => {
-    // API-dan productId va productName ma'lumotlarini olish
-    fetch('http://api.etradingcrm.uz/api/Product/All')
+    fetch('https://api.etradingcrm.uz/api/Product/All')
       .then(response => response.json())
       .then(data => setProductst(data))
       .catch(error => console.log(error));
@@ -39,11 +69,10 @@ const Pdp = () => {
   const filteredProducts = productst.filter(product => {
     return product.name.toLowerCase().includes(searchTerm.toLowerCase());
   });
-// console.log(filteredProducts.map(user=>user.id), "filtered");
 
 
   useEffect(() => {
-    fetch(`http://api.etradingcrm.uz/api/Product/${id}`)
+    fetch(`https://api.etradingcrm.uz/api/Product/${id}`)
       .then((response) => response.json())
       .then((data) => setProduct(data))
       .catch((error) => console.log(error));
@@ -53,7 +82,7 @@ const Pdp = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://api.etradingcrm.uz/api/Product/All"
+          "https://api.etradingcrm.uz/api/Product/All"
         );
         setProducts(response.data);
       } catch (error) {
@@ -79,18 +108,22 @@ const Pdp = () => {
     <div className="pdpContainer">
           <div className="pdpItem">
           <div className="Pdp">
-          <div className="PdpInformation">
-          <img className="pdpImg" src={rvz} alt="Product Image" />
-          <div className="pdpInfo">
-            <h3 className="pdpName"> Maxsulot nomi: 
-              {" "} {  product.name || "Product Name Not Available"}
-            </h3>
-            <span className="PdpPrice"><b>Maxsulot narxi:</b>  {product.price}</span>
-            <p className="pdpDescription"><b>Maxsulot tavsifi:</b> {product.description}</p>
-
-            
-          </div>
-          
+           <div className="PdpInformation">
+            {image && (
+              <img className="pdpImg" src={image} alt="Product Photo" />
+            )}
+            <div className="pdpInfo">
+              <h3 className="pdpName">
+                {" "}
+                Maxsulot nomi: {product.name || "Product Name Not Available"}
+              </h3>
+              <span className="PdpPrice">
+                <b>Maxsulot narxi:</b> {product.price}
+              </span>
+              <p className="pdpDescription">
+                <b>Maxsulot tavsifi:</b> {product.description}
+              </p>
+            </div>
           </div>
           <div className="PdpListDetails">
           <ol className="pdpList">

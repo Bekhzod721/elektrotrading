@@ -10,12 +10,12 @@ const AddAttendance = () => {
   const [query, setQuery] = useState("");
   // Yoqlama
   const [items, setItems] = useState([]);
-
+  const [error, setError] = useState("")
   const tok = window.localStorage.token
   const tokenn = tok.slice(1, (tok.length) -1)
 
   useEffect(() => {
-    fetch("http://api.etradingcrm.uz/api/Employee/All")
+    fetch("https://api.etradingcrm.uz/api/Employee/All")
       .then((response) => response.json())
       .then((data) => {
         const deletedEmployees = data.filter(
@@ -33,7 +33,7 @@ const AddAttendance = () => {
 
 
   useEffect(() => {
-    fetch("http://api.etradingcrm.uz/api/Employee/All")
+    fetch("https://api.etradingcrm.uz/api/Employee/All")
       .then((response) => response.json())
       .then((data) => {
         const deletedEmployees = data.filter(
@@ -87,15 +87,32 @@ const AddAttendance = () => {
       redirect: "follow",
     };
 
-
-    fetch("http://api.etradingcrm.uz/api/Attendance", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-
-      setIsModalOpen(false)
-    	// handleRefreshClick()
+    
+    fetch("https://api.etradingcrm.uz/api/Attendance", requestOptions)
+    .then((response) => {
+      response.text()
+      if (response.ok) {
+        handleRefreshClick();
+         setIsModalOpen(false)
+       } else {
+         throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+       } 
+    })
+    .then((result) => console.log(result))
+    .catch( (error) => {
+      setError(error.message);
+    })
+  
+    
   };
+
+  const handleWarning = () => {
+    if (error) {
+      return <div className="warning">{error}</div>;
+    }
+    return null;
+  };
+
 
   // // Yoqlama edit 
 
@@ -111,13 +128,13 @@ const AddAttendance = () => {
   }, []);
 
   const fetchData = () => {
-    fetch('http://api.etradingcrm.uz/api/Attendance/All')
+    fetch('https://api.etradingcrm.uz/api/Attendance/All')
       .then(response => response.json())
       .then(data => {
         setData(data);
       })
       .catch(error => {
-        console.log('Error fetching data:', error);
+        throw new Error('Ozroq Kuting!');
       });
   };
 
@@ -145,7 +162,7 @@ const [isModalOpenEdit, setIsModalOpenEdit] = useState(false)
       redirect: "follow",
     };
   
-    fetch("http://api.etradingcrm.uz/api/Attendance", requestOptions)
+    fetch("https://api.etradingcrm.uz/api/Attendance", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result, "resulttt boldi"))
       .catch((error) => console.log("error", error));
@@ -185,14 +202,14 @@ useEffect(() => {
 
 const fetichData = async () => {
   try {
-    const response = await fetch(`http://api.etradingcrm.uz/api/Attendance/All?sort=day&day${selectedDate}`);
+    const response = await fetch(`https://api.etradingcrm.uz/api/Attendance/All?sort=day&day${selectedDate}`);
     // console.log(response);
     const responseData = await response.json();
     const sortedData = responseData.sort((a, b) => a.day.localeCompare(b.day));
     // console.log(sortedData, "sortData");
     setFilteredData(sortedData);
   } catch (error) {
-    console.log(error);
+    throw new Error('Ozroq Kuting!');
   }
 };
 
@@ -319,8 +336,9 @@ const falseDat = ff.map(item => item.isMainWork).filter(use=>use === false)
                 </div>
 
 
-                    <button className="AttendanceModalSaveBtn" onClick={handleSaveUser}><b>Saqlash</b></button>
-                    <button className="AttendanceModalCloseBtn" onClick={handleCloseModal}><b>Yopish</b></button>
+                    <button className="AttendanceModalSaveBtn" onClick={handleSaveUser}><b>Save</b></button>
+                    <button className="AttendanceModalCloseBtn" onClick={handleCloseModal}><b>Close</b></button>
+                    {handleWarning()}
                   </div>
                 </div>
               )}
@@ -381,8 +399,8 @@ const falseDat = ff.map(item => item.isMainWork).filter(use=>use === false)
           }
             </div>
             <div>
-                    <button className="AttendanceEditSaveBtn" onClick={saveChanges}><b>Saqlash</b></button>
-                    <button className="AttendanceEditCloseBtn" onClick={closeModal}><b>Yopish</b></button>
+                    <button className="AttendanceEditSaveBtn" onClick={saveChanges}><b>Save</b></button>
+                    <button className="AttendanceEditCloseBtn" onClick={closeModal}><b>Close</b></button>
             </div>
 
             
@@ -433,10 +451,10 @@ const falseDat = ff.map(item => item.isMainWork).filter(use=>use === false)
 
           <div className="statistics">
             <span className="profit">
-              Bor {trueDat.length} ta / {(trueDat.length)/(allDat.length)*100} %
+              Bor {trueDat.length} ta / {Math.round((trueDat.length)/(allDat.length)*100)} %
             </span>
             <span className="spend">
-              Yo'q {falseDat.length} ta / {(falseDat.length)/(allDat.length)*100} %
+              Yo'q {falseDat.length} ta / {Math.round((falseDat.length)/(allDat.length)*100)} %
             </span>
           </div>
 

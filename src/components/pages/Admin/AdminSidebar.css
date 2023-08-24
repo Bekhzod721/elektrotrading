@@ -147,6 +147,28 @@
   margin-left: 80px;
   color: #173F77;
 }
+.logout{
+  width: 120px;
+  border: none;
+  background-color: #173F77;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 25px;
+  margin-top: 8px;
+  margin-left: 15px;
+}
+.logoutPhone{
+  width: 100px;
+  border: none;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 20px;
+  margin-top: 5px;
+}
 
 @media (max-width: 600px) {
 

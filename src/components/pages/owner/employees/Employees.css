@@ -114,6 +114,9 @@ td.thItem{
   /* border: solid 1px; */
   justify-content: space-between;
 }
+.thItemDetails{
+  width: 200px;
+}
 .thItemDeadline{
   width: 120px;
   display: flex;
@@ -958,9 +961,12 @@ svg{
   outline: none;
   font-size: 18px;
   overflow: auto;
+  /* overflow-y: auto; */
+  height: 50px;
 }
 .ProductSelectionOption{
   outline: none;
+
 }
 .TextAreaDescription{
   font-size: 22px;
@@ -1375,7 +1381,7 @@ svg{
   }
 .routerContainer{
   display: flex;
-  width: 500px;
+  width: 499px;
 }
 
 .th__title{
@@ -1422,17 +1428,17 @@ td{
   font-size: 15px;
 }
   .container {
-    width: 500px;
+    width: 499px;
   }
   .th__title,
   .tr__title,
   .statistics {
-    width: 500px;
+    width: 499px;
   }
   .input__div{
     display: flex;
     /* flex-direction: column; */
-    width: 500px;
+    width: 499px;
   }
   .searchInput{
     margin-left: 20px;
@@ -1574,13 +1580,20 @@ td{
    }
 }
 
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 400px) {
   .sidebar{
     display: none;
   }
 .routerContainer{
   display: flex;
-  width: 370px;
+  max-width: 399px;
+  margin: 0;
+}
+
+.finish{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .th__title{
@@ -1610,12 +1623,24 @@ td{
 .thItemTotalPrice , .trItemTotalPrice{
   width: 90px;
 }
+.thItemDetails{
+  width: 80px;
+}
 .trItemBtns{
   width: 50px;
 }
 
 b{
   font-size: 14px;
+}
+table.tbody{
+width: 400px;
+}
+table{
+  width: 400px;
+}
+thead{
+  width: 400px;
 }
 td{
   font-size: 16px;
@@ -1627,26 +1652,26 @@ td{
   font-size: 15px;
 }
   .container {
-    width: 370px;
+    max-width: 400px;
   }
   .th__title,
   .tr__title,
   .statistics {
-    width: 370px;
+    width: 400px;
   }
   .input__div{
     display: flex;
     /* flex-direction: column; */
-    width: 370px;
+    width: 400px;
   }
   .searchInput{
     margin-left: 20px;
-    width: 150px;
+    width: 100px;
     font-size: 16px;
   }
   input{
     font-size: 15px;
-    width: 150px;
+    width: 100px;
     margin: 0;
   }
   .inputDate{
@@ -1658,20 +1683,21 @@ td{
     display: none;
   }
   .modals-content{
-    width: 350px;
+    width: 380px;
   }
   .modalForm{
-    width: 360px;
+    width: 380px;
   }
   .modalFormLabel{
-    width: 350px;
+    width: 370px;
     font-size: 20px;
   }
+
   .modal-content{
     width: 360px;
   }
   .MainSidebar{
-    width: 350px;
+    width: 390px;
   }
   .attendanceBtns{
     width: 130px;
@@ -1702,14 +1728,14 @@ td{
     margin: 0;
   }
   .input__divBlue{
-    width: 370px;
+    width: 400px;
   } 
   .products{
-    width: 370px;
+    width: 400px;
 
   }
   .productsItem{
-    width: 370px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1717,7 +1743,7 @@ td{
   }
   .pdpItem{
     padding-left: 0px;
-    width: 370px;
+    width: 400px;
     display: flex;
     flex-direction: column;
   }
@@ -1730,7 +1756,7 @@ td{
     flex-direction: column;
   }
   .PdpListDetails{
-    width: 300px;
+    width: 350px;
     margin-left: 30px;
     display: flex;
     flex-direction: column;
@@ -1738,7 +1764,7 @@ td{
     }
 
   .pdpContainer{
-    width: 370px;
+    width: 400px;
     display: flex;
     flex-direction: column;
 
@@ -1749,7 +1775,7 @@ td{
     
    }
    .PdpInformation{
-    width: 370px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1758,7 +1784,7 @@ td{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 340px;
+    width: 370px;
    }
    .PdpNumber{
     margin-bottom: 20px;

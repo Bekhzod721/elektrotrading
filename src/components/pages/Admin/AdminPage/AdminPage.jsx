@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import  useHistory  from "react";
+// import { history }from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AdminSidebar from "../AdminSidebar";
 import AddAttendance from "../attendance/AddAttendance";
@@ -15,9 +17,14 @@ import CreateUser from "../CreateUser";
 import { Link, NavLink } from "react-router-dom";
 import {GiHamburgerMenu}  from "react-icons/gi"
 import PdpAdmin from "../product price/PdpAdmin";
+import Login  from "../../login/Login";
+import LoginForm from "../../login/LoginForm";
+import {TbLogout2 } from "react-icons/tb";
 
 const AdminPage = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal holatini saqlash uchun useState()
+
+  // const history = useHistory();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -25,6 +32,11 @@ const AdminPage = ({ children }) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  }
+
+  const handleLogout = () => {
+    localStorage.clear(); 
+    window.location.href = "/login";
   };
 
   const menuItem = [
@@ -70,7 +82,7 @@ const AdminPage = ({ children }) => {
     },
     {
       path: "/AddFinishedProducts",
-      name: "Finished Product",
+      name: "Tayyor Tovarlar",
       icon: "",
     },
     {
@@ -138,6 +150,7 @@ const AdminPage = ({ children }) => {
               </NavLink>
             ))}
           </div>
+            <button onClick={handleLogout} className="logoutPhone"> <TbLogout2/> Chiqish</button>
         </div>
 
         <main className="">{children}</main>

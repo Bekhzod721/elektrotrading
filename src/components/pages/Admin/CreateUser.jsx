@@ -35,19 +35,7 @@ const CreateUser = () => {
   const [selectedOption , setSelectedOption] = useState('')
   const [role, setRole] = useState('')
 
-
-  // useEffect(() => {
-  //   axios.get('http://api.etradingcrm.uz/api/User/All')
-  //     .then(res => {
-  //       const items = res.data;
-  //       // console.log(res.data);
-  //       setItems(items);
-   
-
-
-  //     })
-  //     .catch(err => console.log(err));
-  // }, []);
+  const [error, setError] = useState("")
 
   useEffect(() => {
     const config = {
@@ -56,7 +44,7 @@ const CreateUser = () => {
       },
     };
   
-    axios.get('http://api.etradingcrm.uz/api/User/All' , config)
+    axios.get('https://api.etradingcrm.uz/api/User/All' , config)
       .then(res => {
         const items = res.data;
         setItems(items);
@@ -98,12 +86,9 @@ const handleRefreshClick = () => {
       'role' : parseInt(selectedOption),
     };
     console.log(inputData);
-    
-  
-    
     try {
 
-      const response = await fetch('http://api.etradingcrm.uz/api/User', {        
+      const response = await fetch('https://api.etradingcrm.uz/api/User', {        
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${tokenn}`,
@@ -111,16 +96,14 @@ const handleRefreshClick = () => {
           'Content-Type': 'application/json'
         },        
         body: JSON.stringify(inputData)
-      });
-
- 
-  
-    
-
-    const data = await response.json();
-    console.log(data);
+      })
+      if (response.ok) {
+        handleRefreshClick();
+      } else {
+        throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+      }
   } catch (error) {
-    console.error(error);
+   setError("Kerakli ma`lumotlarni to`ldiring!")
   }
 };
 
@@ -146,7 +129,7 @@ const handleRefreshClick = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://api.etradingcrm.uz/api/User/${selectedItem.id}`, {
+      const response = await fetch(`https://api.etradingcrm.uz/api/User/${selectedItem.id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${tokenn}`,
@@ -219,13 +202,18 @@ const handleRefreshClick = () => {
       redirect: 'follow',
     };
   
-    fetch('http://api.etradingcrm.uz/api/User', requestOptions)
+    fetch('https://api.etradingcrm.uz/api/User', requestOptions)
       .then((response) => response.text())
-      .then(() => {
+      .then((response) => {
         setItems(updatedItems);
-        setShowEditModal(false);
+        if (response.ok) {
+          handleRefreshClick();
+          setShowEditModal(false);
+        } else {
+          throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+        }
       })
-      .catch((error) => console.log('error', error));
+      .catch(() => {setError("Kerakli ma`lumotlarni to`ldiring!")});
   };
 
 
@@ -291,7 +279,7 @@ const handleRefreshClick = () => {
             
 
                          <button type='submit' className='modalFormBtn'>Save</button>
-
+                         <div style={{color:"red"}}>{error}</div>
 
                        </form>
                   </div>
@@ -347,10 +335,9 @@ const handleRefreshClick = () => {
                                 <option value={2}>Admin</option>
                              </select>                                                                           
                           </label>
-                
-    
-
           <button className='modalFormBtn' onClick={handleSaveClick }>Save</button>
+                
+          <div style={{color:"red"}}>{error}</div>
         </div>
         </div>
       )}

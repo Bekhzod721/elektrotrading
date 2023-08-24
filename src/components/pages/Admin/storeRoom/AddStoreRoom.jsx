@@ -36,9 +36,10 @@ const AddStoreRoom   = () => {
   const [productId, setProductId] = useState('');
   const [selectedOption , setSelectedOption] = useState('')
 
-
+  const [error, setError] = useState("")
+  
   useEffect(() => {
-    axios.get('http://api.etradingcrm.uz/api/Storage/All')
+    axios.get('https://api.etradingcrm.uz/api/Storage/All')
       .then(res => {
         const items = res.data;
         // console.log(res.data);
@@ -60,7 +61,7 @@ const [selectedProduct, setSelectedProduct] = useState('');
 const [searchTerm, setSearchTerm] = useState('');
 
 useEffect(() => {
-  fetch('http://api.etradingcrm.uz/api/Product/All')
+  fetch('https://api.etradingcrm.uz/api/Product/All')
     .then(response => response.json())
     .then(data => setProductst(data))
     .catch(error => console.log(error));
@@ -81,10 +82,6 @@ const filteredProducts = productst.filter(product => {
 
 //CREATE PRODUCT
 
-
-const handleRefreshClick = () => {
-  window.location.reload();
-};
 
 
   // Modal  
@@ -114,7 +111,7 @@ const handleRefreshClick = () => {
     try {
       
       
-      const response = await fetch('http://api.etradingcrm.uz/api/Storage', {
+      const response = await fetch('https://api.etradingcrm.uz/api/Storage', {
         
         method: 'POST',
         headers: {
@@ -125,17 +122,23 @@ const handleRefreshClick = () => {
         
         body: JSON.stringify(inputData)
       });
-
- 
-  
-    
-
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
+      if (response.ok) {
+        handleRefreshClick();
+       } else {
+         throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+       } 
+  } catch (err) {
+    setError(err.message);
   }
 };
+
+const handleWarning = () => {
+  if (error) {
+    return <div className="warning">{error}</div>;
+  }
+  return null;
+};
+
 
 
 
@@ -159,7 +162,7 @@ const handleRefreshClick = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://api.etradingcrm.uz/api/Storage/${selectedItem.id}`, {
+      const response = await fetch(`https://api.etradingcrm.uz/api/Storage/${selectedItem.id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${tokenn}`,
@@ -173,11 +176,9 @@ const handleRefreshClick = () => {
 
         setShowModal(false);
       } else {
-        // Handle error response
         console.error('Delete request failed:', response.status, response.statusText);
       }
     } catch (error) {
-      // Handle fetch error
       console.error('Delete request error:', error);
     }
   };
@@ -203,7 +204,11 @@ const handleRefreshClick = () => {
     setShowEditModal(true);
   };
 
-
+  const handleRefreshClick = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
 
 
   const handleSaveClick = () => {
@@ -232,13 +237,14 @@ const handleRefreshClick = () => {
       redirect: 'follow',
     };
   
-    fetch('http://api.etradingcrm.uz/api/Storage', requestOptions)
+    fetch('https://api.etradingcrm.uz/api/Storage', requestOptions)
       .then((response) => response.text())
       .then(() => {
         setItems(updatedItems);
         setShowEditModal(false);
       })
       .catch((error) => console.log('error', error));
+     
   };
 
 
@@ -308,7 +314,7 @@ const handleRefreshClick = () => {
 
                          <button type='submit' className='modalFormBtn'>Save</button>
 
-
+                         {handleWarning()}
                        </form>
                   </div>
                 </div>

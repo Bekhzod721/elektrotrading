@@ -16,7 +16,7 @@ const Employees = () => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    fetch("http://api.etradingcrm.uz/api/Employee/All");
+    fetch("https://api.etradingcrm.uz/api/Employee/All");
   }, []);
 
   const [items, setItems] = useState([]);
@@ -43,7 +43,7 @@ const Employees = () => {
 
   useEffect(() => {
     axios
-      .get("http://api.etradingcrm.uz/api/Employee/All")
+      .get("https://api.etradingcrm.uz/api/Employee/All")
       .then((res) => {
         const items = res.data.filter((items) => items.isDeleted === false);
         // console.log(res.data);

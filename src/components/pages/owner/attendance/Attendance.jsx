@@ -15,7 +15,7 @@ const Attendance = () => {
   const tokenn = tok.slice(1, (tok.length) -1)
 
   useEffect(() => {
-    fetch("http://api.etradingcrm.uz/api/Employee/All")
+    fetch("https://api.etradingcrm.uz/api/Employee/All")
       .then((response) => response.json())
       .then((data) => {
         const deletedEmployees = data.filter(
@@ -33,7 +33,7 @@ const Attendance = () => {
 
 
   useEffect(() => {
-    fetch("http://api.etradingcrm.uz/api/Employee/All")
+    fetch("https://api.etradingcrm.uz/api/Employee/All")
       .then((response) => response.json())
       .then((data) => {
         const deletedEmployees = data.filter(
@@ -78,7 +78,7 @@ const Attendance = () => {
     };
 
 
-    fetch("http://api.etradingcrm.uz/api/Attendance", requestOptions)
+    fetch("https://api.etradingcrm.uz/api/Attendance", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -105,7 +105,7 @@ useEffect(() => {
 
 const fetichData = async () => {
   try {
-    const response = await fetch(`http://api.etradingcrm.uz/api/Attendance/All?sort=day&day${selectedDate}`);
+    const response = await fetch(`https://api.etradingcrm.uz/api/Attendance/All?sort=day&day${selectedDate}`);
     console.log(response);
     const responseData = await response.json();
     const sortedData = responseData.sort((a, b) => a.day.localeCompare(b.day));

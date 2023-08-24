@@ -49,7 +49,7 @@ const LoginForm = ({ handleLogin }) => {
         Kirish
       </button>
 
-      <div className="warning"></div>
+      {/* <div className="warning"></div> */}
     </form>
     </div>
   );

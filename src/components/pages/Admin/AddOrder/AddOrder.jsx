@@ -42,6 +42,7 @@ const AddOrder = () => {
   const [fil, setFil] = useState(items);
   const [month, setMonth] = useState("");
 
+  const [error, setError] = useState("")
 
 
   const [productst, setProductst] = useState([]);
@@ -49,7 +50,7 @@ const AddOrder = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch('http://api.etradingcrm.uz/api/Product/All')
+    fetch('https://api.etradingcrm.uz/api/Product/All')
       .then(response => response.json())
       .then(data => setProductst(data))
       .catch(error => console.log(error));
@@ -71,7 +72,7 @@ const AddOrder = () => {
 
   useEffect(() => {
     axios
-      .get("http://api.etradingcrm.uz/api/Order/All")
+      .get("https://api.etradingcrm.uz/api/Order/All")
       .then((res) => {
         const items = res.data;
         setItems(items);
@@ -128,7 +129,7 @@ const AddOrder = () => {
     };
 
     try {
-      const response = await fetch("http://api.etradingcrm.uz/api/Order", {
+      const response = await fetch("https://api.etradingcrm.uz/api/Order", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${tokenn}`,
@@ -138,14 +139,23 @@ const AddOrder = () => {
 
         body: JSON.stringify(inputData),
       });
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+      if (response.ok) {
+        handleRefreshClick();
+       } else {
+         throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+       } 
+    } catch (err) {
+      setError(err.message);
     }
-    handleRefreshClick()
   };
+
+  const handleWarning = () => {
+    if (error) {
+      return <div className="warning">{error}</div>;
+    }
+    return null;
+  };
+
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
@@ -178,7 +188,7 @@ const AddOrder = () => {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://api.etradingcrm.uz/api/Order/${selectedItem.id}`,
+        `https://api.etradingcrm.uz/api/Order/${selectedItem.id}`,
         {
           method: "DELETE",
           headers: {
@@ -261,13 +271,13 @@ const AddOrder = () => {
       redirect: "follow",
     };
 
-    fetch("http://api.etradingcrm.uz/api/Order", requestOptions)
+    fetch("https://api.etradingcrm.uz/api/Order", requestOptions)
       .then((response) => response.text())
       .then(() => {
         setItems(updatedItems);
         setShowEditModal(false);
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {throw new Error('Ozroq Kuting!');});
       handleRefreshClick()
   };
   // console.log(fil);
@@ -421,6 +431,7 @@ const AddOrder = () => {
               <button type="submit" className="modalFormBtn">
                 Save
               </button>
+              {handleWarning()}
             </form>
           </div>
         </div>

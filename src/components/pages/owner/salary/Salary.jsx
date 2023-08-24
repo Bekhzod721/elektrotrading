@@ -35,7 +35,7 @@ useEffect(() => {
 
 const fetchUsers = async () => {
   try {
-    const response = await axios.get('http://api.etradingcrm.uz/api/Employee/All');
+    const response = await axios.get('https://api.etradingcrm.uz/api/Employee/All');
       const items = response.data.filter(items => items.isDeleted === false);
     setUsers(items);
   } catch (error) {
@@ -45,7 +45,7 @@ const fetchUsers = async () => {
 // const totalSalary = items.reduce((total, item) => total + item.salary, 0);
 const fetchUserDetails = async (userId) => {
   try {
-    const response = await axios.get(`http://api.etradingcrm.uz/api/EmployeeDebt/All`);
+    const response = await axios.get(`https://api.etradingcrm.uz/api/EmployeeDebt/All`);
     setUserDetails(response.data);
   } catch (error) {
     console.error('Foydalanuvchi ma`lumotlarini olishda xatolik yuz berdi:', error);
@@ -53,7 +53,7 @@ const fetchUserDetails = async (userId) => {
 };
 const fetchUserSalary = async (userId) => {
   try {
-    const response = await axios.get(`http://api.etradingcrm.uz/api/EmployeeSalary/${userId}`);
+    const response = await axios.get(`https://api.etradingcrm.uz/api/EmployeeSalary/${userId}`);
     setUserSalary(response.data);
   } catch (error) {
     console.error('Foydalanuvchi ma`lumotlarini olishda xatolik yuz berdi:', error);
@@ -61,7 +61,7 @@ const fetchUserSalary = async (userId) => {
 };
 const fetchUserAvans = async (userId) => {
   try {
-    const response = await axios.get(`http://api.etradingcrm.uz/api/EmployeeDebt/${userId}`);
+    const response = await axios.get(`https://api.etradingcrm.uz/api/EmployeeDebt/${userId}`);
     setUserSalary(response.data);
   } catch (error) {
     console.error('Foydalanuvchi ma`lumotlarini olishda xatolik yuz berdi:', error);
@@ -115,7 +115,7 @@ const handleSaveUser = async () => {
   };
   console.log(inputData);
   try {
-    const response = await fetch('http://api.etradingcrm.uz/api/EmployeeSalary', {
+    const response = await fetch('https://api.etradingcrm.uz/api/EmployeeSalary', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${tokenn}`,
@@ -148,7 +148,7 @@ const handleSaveUserAvans = async () => {
   };
   console.log(inputData);
   try {
-    const response = await fetch('http://api.etradingcrm.uz/api/EmployeeDebt', {
+    const response = await fetch('https://api.etradingcrm.uz/api/EmployeeDebt', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${tokenn}`,

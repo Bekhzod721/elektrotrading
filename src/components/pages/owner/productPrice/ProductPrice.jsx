@@ -12,9 +12,87 @@ import { Link } from 'react-router-dom';
 const AddProductPrice = () => {
 
   const [query, setQuery] = useState("");
+
   
+  const [productssold, setProductssold] = useState([]);
+  const [userIds, setUserIds] = useState([]);
+  const [userPhotos, setUserPhotos] = useState([]);
+
+
   useEffect(() => {
-    fetch('http://api.etradingcrm.uz/api/Employee/All')
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          'https://api.etradingcrm.uz/api/Product/All?isOnSale=true'
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setProductssold(data);
+        } else {
+          console.log('Failed to fetch products');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+
+
+  useEffect(() => {
+    const fetchUserPhotos = async () => {
+      try {
+        const photoResponses = [];
+        for (const userId of userIds) {
+          const response = await fetch(`https://api.etradingcrm.uz/api/ProductPhoto/${userId}`);
+  
+          if (response.ok) {
+            const photoData = await response.blob();
+            const photoObject = URL.createObjectURL(photoData);
+            photoResponses.push({ id: userId, url: photoObject });
+          } else {
+            photoResponses.push({ id: userId, url: null });
+          }
+        }
+        setUserPhotos(photoResponses);
+      } catch (error) {
+        console.log(error);;
+      }
+    };
+  
+    if (userIds.length > 0) {
+      fetchUserPhotos();
+    }
+  }, [userIds]);
+
+  useEffect(() => {
+    const fetchUserIds = async () => {
+      try {
+        const response = await fetch(
+          "https://api.etradingcrm.uz/api/Product/All"
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not OK");
+        }
+
+        const data = await response.json();
+        const ids = data.map((user) => user.id);
+        setUserIds(ids);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUserIds();
+  }, []);
+
+
+  useEffect(() => {
+    fetch('https://api.etradingcrm.uz/api/Employee/All')
 
   }, []);
   
@@ -25,7 +103,7 @@ const AddProductPrice = () => {
   const  a = window.localStorage.token;
   
   useEffect(() => {
-    axios.get('http://api.etradingcrm.uz/api/Product/All')
+    axios.get('https://api.etradingcrm.uz/api/Product/All')
       .then(res => {
         setItems(res);
       })
@@ -71,28 +149,40 @@ const productAll = arr.map(item => item).length
 
 
 
-
-          <div className="products">
-
-            <div className="productsItem">
-            {arr.filter((row) => row.name.toLowerCase().includes(query)).slice(entries.indexOfFirst, entries.indexOfLast).map(item => (
-                    <Link key={item.id} className='PdpLink' to={`Pdp/${item.id}`}>
-                    <div className="product">
-                    <img className='productImg' src={RVZ} alt="Product Image" />
-                    <p className='productName'>{item.name}</p>
-                    <span className='productPrice'>{item.price} UZS </span>
-                    </div>
-                    </Link>
-              ))}
-
-
-                
-            </div>
-            
-               
-
-          </div>
-
+ <div className="products">
+        <div className="productsItem">
+          {productssold
+            .filter((row) => row.name.toLowerCase().includes(query))
+            .slice(entries.indexOfFirst, entries.indexOfLast)
+            .filter((item) => userPhotos.some((photo) => photo.id === item.id))
+            .map((item) => (
+              <Link
+                key={item.id}
+                className="PdpLink"
+                to={`Pdp/${item.id}`}
+              >
+                <div className="product">
+                  {userPhotos.map((photo) => {
+                    if (photo.id === item.id) {
+                      return (
+                       <div>
+                         <img
+                          key={photo.id}
+                          src={photo.url}
+                          style={{width: "230px", height: "200px"  }}
+                        />
+                       </div>
+                      );
+                    }
+                    return null;
+                  })}
+                  <p className="productName">{item.name}</p>
+                  <span className="productPrice">{item.price} UZS</span>
+                </div>
+              </Link>
+            ))}
+        </div>
+      </div>
 
 
 
@@ -103,13 +193,12 @@ const productAll = arr.map(item => item).length
    
 
 
-<div className="statistics">
-    <span className="profit">Umumiy xodimlar soni: {productAll}</span>
-
-  </div>
+      <div className="statistics">
+        <span className="profit">Sotuvdagi maxsulotlar soni: {productssold.length}</span>
+      </div>
       <Pagination
             entriesPerPage={entriesPerPage.get}
-            totalEntries={arr.length}
+            totalEntries={productssold.length}
             currentPage={{ get: currentPage.get, set: currentPage.set }}
             offset={3}
             classNames={{

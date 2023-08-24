@@ -11,6 +11,11 @@ const AddSalary = () => {
   const tok = window.localStorage.token
   const tokenn = tok.slice(1, (tok.length) -1)
 
+  const handleRefreshClick = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
 
 // Batafsil 
 
@@ -23,13 +28,15 @@ const [userDetails, setUserDetails] = useState(null);
 const [userSalary, setUserSalary] = useState(null);
 const [userAvans, setUserAvans] = useState(null);
 
+const [error, setError] = useState("")
+
 useEffect(() => {
   fetchUsers();
 }, []);
 
 const fetchUsers = async () => {
   try {
-    const response = await axios.get('http://api.etradingcrm.uz/api/Employee/All');
+    const response = await axios.get('https://api.etradingcrm.uz/api/Employee/All');
       const items = response.data.filter(items => items.isDeleted === false);
     setUsers(items);
   } catch (error) {
@@ -39,7 +46,7 @@ const fetchUsers = async () => {
 // const totalSalary = items.reduce((total, item) => total + item.salary, 0);
 const fetchUserDetails = async (userId) => {
   try {
-    const response = await axios.get(`http://api.etradingcrm.uz/api/EmployeeDebt/All`);
+    const response = await axios.get(`https://api.etradingcrm.uz/api/EmployeeDebt/All`);
     setUserDetails(response.data);
   } catch (error) {
     console.error('Foydalanuvchi ma`lumotlarini olishda xatolik yuz berdi:', error);
@@ -47,7 +54,7 @@ const fetchUserDetails = async (userId) => {
 };
 const fetchUserSalary = async (userId) => {
   try {
-    const response = await axios.get(`http://api.etradingcrm.uz/api/EmployeeSalary/${userId}`);
+    const response = await axios.get(`https://api.etradingcrm.uz/api/EmployeeSalary/${userId}`);
     setUserSalary(response.data);
   } catch (error) {
     console.error('Foydalanuvchi ma`lumotlarini olishda xatolik yuz berdi:', error);
@@ -55,7 +62,7 @@ const fetchUserSalary = async (userId) => {
 };
 const fetchUserAvans = async (userId) => {
   try {
-    const response = await axios.get(`http://api.etradingcrm.uz/api/EmployeeDebt/${userId}`);
+    const response = await axios.get(`https://api.etradingcrm.uz/api/EmployeeDebt/${userId}`);
     setUserSalary(response.data);
   } catch (error) {
     console.error('Foydalanuvchi ma`lumotlarini olishda xatolik yuz berdi:', error);
@@ -67,11 +74,7 @@ const handleOpenModal = async (user) => {
   setIsModalOpen(true);
   await fetchUserDetails(user.id);
 };
-const handleRefreshClick = () => {
-  setTimeout(() => {
-    window.location.reload();
-  }, 500);
-};
+
 
 const handleCloseModal = () => {
   setIsModalOpen(false);
@@ -101,6 +104,7 @@ const handleOpenAvans = async (user) => {
 
 // POST SALARY 
 const [summs, setSumms] = useState('');
+
 const handleSaveUser = async () => {
 
   const inputData = {
@@ -109,7 +113,7 @@ const handleSaveUser = async () => {
   };
   console.log(inputData);
   try {
-    const response = await fetch('http://api.etradingcrm.uz/api/EmployeeSalary', {
+    const response = await fetch('https://api.etradingcrm.uz/api/EmployeeSalary', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${tokenn}`,
@@ -117,13 +121,24 @@ const handleSaveUser = async () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(inputData)
-    });
-    const data = await response.json();
-    console.log(data);
-} catch (error) {
-  console.error(error);
-}
-};
+    }) 
+    if (response.ok) {
+      handleRefreshClick();
+    } else {
+      throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+    }
+      } catch (err) {
+        setError(err.message);
+      }
+      };
+
+      const handleWarning = () => {
+        if (error) {
+          return <div className="warning">{error}</div>;
+        }
+        return null;
+      };
+    
 
 const handleNameChange = (event) => {
   setSumms(event.target.value);
@@ -142,7 +157,7 @@ const handleSaveUserAvans = async () => {
   };
   console.log(inputData);
   try {
-    const response = await fetch('http://api.etradingcrm.uz/api/EmployeeDebt', {
+    const response = await fetch('https://api.etradingcrm.uz/api/EmployeeDebt', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${tokenn}`,
@@ -151,11 +166,14 @@ const handleSaveUserAvans = async () => {
       },
       body: JSON.stringify(inputData)
     })
-    console.log(response)
-} catch (error) {
-  console.error(error);
+    if (response.ok) {
+      handleRefreshClick();
+    } else {
+      throw new Error('Kerakli ma`lumotlarni to`ldiring!');
+    }
+}  catch (err) {
+  setError(err.message);
 }
-// handleRefreshClick()
 };
 
 
@@ -280,10 +298,10 @@ const totalDebtAll = totalDebtSummsAll.reduce((oldValue, currentValue) => oldVal
           </label>
 
           <div className="SalaryModalBtns">
-            <button className="SalaryModalSaveBtn" onClick={handleSaveUser}>Saqlash</button>
-            <button className="SalaryModalCloseBtn" onClick={handleCloseModal}>Yopish</button>
+            <button className="SalaryModalSaveBtn" onClick={handleSaveUser}>Save</button>
+            <button className="SalaryModalCloseBtn" onClick={handleCloseModal}>Close</button>
           </div>
-
+          {handleWarning()}
       </div>
     </div>
   </div>
@@ -317,9 +335,10 @@ const totalDebtAll = totalDebtSummsAll.reduce((oldValue, currentValue) => oldVal
         </label>
 
         <div className="SalaryModalBtns">
-          <button className="SalaryModalSaveBtn" onClick={handleSaveUserAvans}>Saqlash</button>
-          <button className="SalaryModalCloseBtn" onClick={handleCloseModal}>Yopish</button>
+          <button className="SalaryModalSaveBtn" onClick={handleSaveUserAvans}>Save</button>
+          <button className="SalaryModalCloseBtn" onClick={handleCloseModal}>Close</button>
         </div>
+        {handleWarning()}
       </div>
       
       

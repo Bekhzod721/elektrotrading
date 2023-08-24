@@ -20,7 +20,7 @@ const InputProduct = () => {
   const tokenn = tok.slice(1, tok.length - 1);
 
   useEffect(() => {
-    fetch("http://api.etradingcrm.uz/api/BSProduct/All?Category=1");
+    fetch("https://api.etradingcrm.uz/api/BSProduct/All?Category=1");
   }, []);
 
   const [items, setItems] = useState([]);
@@ -48,7 +48,7 @@ const InputProduct = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch('http://api.etradingcrm.uz/api/Product/All')
+    fetch('https://api.etradingcrm.uz/api/Product/All')
       .then(response => response.json())
       .then(data => setProductst(data))
       .catch(error => console.log(error));
@@ -71,7 +71,7 @@ const InputProduct = () => {
 
   useEffect(() => {
     axios
-      .get("http://api.etradingcrm.uz/api/BSProduct/All?Category=1")
+      .get("https://api.etradingcrm.uz/api/BSProduct/All?Category=1")
       .then((res) => {
         const items = res.data;
         setItems(items);

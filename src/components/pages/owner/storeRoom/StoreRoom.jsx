@@ -31,7 +31,7 @@ const StoreRoom   = () => {
 
 
   useEffect(() => {
-    axios.get('http://api.etradingcrm.uz/api/Storage/All')
+    axios.get('https://api.etradingcrm.uz/api/Storage/All')
       .then(res => {
         const items = res.data;
         // console.log(res.data);

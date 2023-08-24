@@ -14,8 +14,14 @@ import Dashboard from '../../Dashboard'
 import Pdp from '../productPrice/Pdp'
 import { Link, NavLink } from "react-router-dom";
 import {GiHamburgerMenu}  from "react-icons/gi"
+import {TbLogout2 } from "react-icons/tb"
 
 const OwnerPage = ({ children }) => {
+  const handleLogout = () => {
+    localStorage.clear(); 
+    window.location.href = "login";
+
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal holatini saqlash uchun useState()
 
@@ -134,6 +140,7 @@ const OwnerPage = ({ children }) => {
               </NavLink>
             ))}
           </div>
+          <button onClick={handleLogout} className="logoutPhone"> <TbLogout2/> Chiqish</button>
         </div>
 
         <main className="">{children}</main>

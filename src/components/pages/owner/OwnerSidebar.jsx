@@ -1,8 +1,16 @@
 import React from 'react'
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../../../assets/siteLogoBlue.png"
+import {TbLogout2 } from "react-icons/tb"
 
 const OwnerSidebar = ({ children }) => {
+
+  const handleLogout = () => {
+    localStorage.clear(); 
+    window.location.href = "login";
+
+  };
+  
 
     const menuItem = [
       {
@@ -47,7 +55,7 @@ const OwnerSidebar = ({ children }) => {
       },
       {
         path: "/FinishedProducts",
-        name: "Finished Product",
+        name: "Tayyor tovarlar",
         icon: "",
       },
       {
@@ -72,6 +80,8 @@ const OwnerSidebar = ({ children }) => {
                   </div>
               </NavLink>
             ))}
+
+            <button onClick={handleLogout}  className="logout"> <TbLogout2/> Chiqish</button>
           </div>
         </div>
 

@@ -42,7 +42,7 @@ const SoldProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch('http://api.etradingcrm.uz/api/Product/All')
+    fetch('https://api.etradingcrm.uz/api/Product/All')
       .then(response => response.json())
       .then(data => setProductst(data))
       .catch(error => console.log(error));
@@ -62,7 +62,7 @@ const SoldProducts = () => {
 
   useEffect(() => {
     axios
-      .get("http://api.etradingcrm.uz/api/BSProduct/All?Category=2")
+      .get("https://api.etradingcrm.uz/api/BSProduct/All?Category=2")
       .then((res) => {
         const items = res.data;
         setItems(items);

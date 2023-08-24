@@ -6,7 +6,7 @@ const SelectProduct = () => {
 
   useEffect(() => {
     // API-dan productId va productName ma'lumotlarini olish
-    fetch('http://api.etradingcrm.uz/api/Product/All')
+    fetch('https://api.etradingcrm.uz/api/Product/All')
       .then(response => response.json())
       .then(data => setProducts(data))
       .catch(error => console.log(error));
