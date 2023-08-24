@@ -1,5 +1,7 @@
+
+
 .formContainer{
-  width: 500px;
+  width: 400px;
   margin: 0 auto;
   padding: 0;
 }
@@ -43,4 +45,35 @@
   width: 280px;
   font-size: 20px;
   color: red;
+}
+
+@media screen and (max-width: 400px) {
+  .formContainer{
+    width: 350px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .login-form{
+    width: 350px;
+  }
+
+  .login-form__input{
+    width: 250px;
+  }
+  
+}
+@media screen and (max-width: 500px) {
+  .formContainer{
+    width: 350px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .login-form{
+    width: 350px;
+  }
+
+  .login-form__input{
+    width: 250px;
+  }
+  
 }

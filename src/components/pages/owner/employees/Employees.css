@@ -1479,9 +1479,6 @@ td{
     display: flex;
     justify-content: space-between;
   }
-  .btnEdit{
-    /* margin-righ: 10px; */
-  }
   .btnAdd, .btnEdit{
     width: 60px;
     margin: 0px;
@@ -1507,7 +1504,6 @@ td{
   } 
   .products{
     width: 500px;
-
   }
   .productsItem{
     width: 500px;
@@ -1662,6 +1658,13 @@ td{
   .input__div{
     display: flex;
     /* flex-direction: column; */
+    width: 400px;
+  }
+  .input__divBlue{
+    width: 400px;
+    
+  }
+  .products{
     width: 400px;
   }
   .searchInput{

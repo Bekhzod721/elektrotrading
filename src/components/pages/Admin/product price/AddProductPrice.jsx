@@ -4,6 +4,7 @@ import { FaPlus } from "react-icons/fa";
 import axios from "axios";
 import CurrentTime from "../../CurrentTime";
 import { Link } from "react-router-dom";
+import "../../owner/productPrice/ProductPrice.css"
 
 const AddProductPrice = () => {
 
@@ -410,9 +411,21 @@ console.log(error, "errr");
         <div className="currentDateTime">
           <CurrentTime />
         </div>
+        <div className="ProductBtns">
         <button onClick={handleOpenModal} className="btnAddSale">
             <b>Sale</b>
             </button>
+
+            <button
+          className="btnAddWhite"
+          handleAddExit={handleAdd}
+          onClick={handleAdd}
+          id="myBtn"
+        >
+          <b className="txtAddBlue">Add</b>
+          <FaPlus className="FaPlusColor" />
+        </button>
+        </div>
 
         {modalOpen && (
           <div className="modal">
@@ -455,15 +468,7 @@ console.log(error, "errr");
           </div>
         )}
 
-        <button
-          className="btnAddWhite"
-          handleAddExit={handleAdd}
-          onClick={handleAdd}
-          id="myBtn"
-        >
-          <b className="txtAddBlue">Add</b>
-          <FaPlus className="FaPlusColor" />
-        </button>
+      
         {/* Create Product */}
 
         <div id="myModal" className="modals">

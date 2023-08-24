@@ -397,44 +397,46 @@ const handleSearchDelete = (event) => {
               Save
             </button>
           </div>
+
+          <div>
+
+
+
+<div className="selectionInput">
+    <input
+      className="selectionInputSearch"
+      type="text"
+      placeholder="Search"
+      value={searchTermDel}
+      onInput={handleSearchDel}
+    />
+    <select
+      className="selectionInputSelect"
+      value={selectedCompositionId}
+      onChange={handleCompositionChange}
+    >
+      <option value={null}>Select a composition</option>
+      {filteredProductsDel.map((product) => (
+            <option
+              className="ProductSelectionOption"
+              key={product.productId}
+              value={product.id}
+            >
+              {product.name}
+            </option>
+          ))}
+    </select>
+  </div>
+<button
+  className="removeInputBtn"
+  onClick={handleDeleteAllCompositions}
+>
+  Delete
+</button>
+</div>
         </div>
       </div>
-      <div>
-
-
-
-        <div className="selectionInput">
-            <input
-              className="selectionInputSearch"
-              type="text"
-              placeholder="Search"
-              value={searchTermDel}
-              onInput={handleSearchDel}
-            />
-            <select
-              className="selectionInputSelect"
-              value={selectedCompositionId}
-              onChange={handleCompositionChange}
-            >
-              <option value={null}>Select a composition</option>
-              {filteredProductsDel.map((product) => (
-                    <option
-                      className="ProductSelectionOption"
-                      key={product.productId}
-                      value={product.id}
-                    >
-                      {product.name}
-                    </option>
-                  ))}
-            </select>
-          </div>
-        <button
-          className="removeInputBtn"
-          onClick={handleDeleteAllCompositions}
-        >
-          Delete
-        </button>
-    </div>
+      
 
     </div>
   );

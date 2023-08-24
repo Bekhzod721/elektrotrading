@@ -297,3 +297,46 @@ p.currentDate{
   border-radius: 4px;
 }
 
+@media screen and (max-width: 500px) {
+  .input__divBlue{
+    width: 500px;
+  }
+  .products{
+    width: 500px;
+  
+  }  
+  .btnAddWhite{
+    margin-right: 20px;
+  }
+  }
+  .ProductBtns{
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .PdpInputPhoto{
+    margin-top: 10px;
+  }
+  .PdpListDetails{
+    margin: 0;
+  }
+  .photoInput{
+    width: 200px;
+  }
+  .selectionInput{
+    margin-top: 25px;
+   
+  }
+
+@media screen and (max-width: 400px) {
+.input__divBlue{
+  width: 400px;
+}
+.products{
+  width: 400px;
+
+}  
+.btnAddWhite{
+  margin-right: 20px;
+}
+}
