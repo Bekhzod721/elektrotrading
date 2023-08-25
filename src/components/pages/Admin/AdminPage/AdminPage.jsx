@@ -110,6 +110,7 @@ const AdminPage = ({ children }) => {
          </div> 
       <AdminSidebar>        
         <Routes>     
+          <Route path="/*" element={""} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/AddEmployees" element={<AddEmployees />} />
           <Route path="/AddAttendance" element={<AddAttendance />} />

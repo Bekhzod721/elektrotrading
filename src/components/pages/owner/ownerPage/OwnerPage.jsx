@@ -99,7 +99,7 @@ const OwnerPage = ({ children }) => {
         <OwnerSidebar >
           <Routes>
             <Route path="/*" element={""} />
-            <Route path="/Dashboard" element={<Dashboard/>} />
+            <Route path="/" element={<Dashboard/>} />
             <Route path="/Employees" element={<Employees/>} />
             <Route path="/Attendance" element={<Attendance />} />
             <Route path="/Salary" element={<Salary />} />
