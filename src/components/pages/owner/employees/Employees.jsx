@@ -4,6 +4,8 @@ import { usePagination, Pagination } from "pagination-react-js";
 import { MdDelete } from "react-icons/md";
 import { GrEdit } from "react-icons/gr";
 import { FaPlus } from "react-icons/fa";
+import { FcOk } from "react-icons/fc";
+import { GiCancel } from "react-icons/gi";
 import axios from "axios";
 import CurrentTime from "../../CurrentTime";
 import "./Employees.css"
@@ -60,8 +62,13 @@ const Employees = () => {
 
   // datakeladi
 
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+  const initialDate = `${year}-${month}`;
+
+  const [selectedDate, setSelectedDate] = useState(initialDate);
   const [modalUser, setModalUser] = useState(null);
-  const [selectedDate, setSelectedDate] = useState("");
 
   const openModal = (user) => {
     setModalUser(user);
@@ -71,13 +78,14 @@ const Employees = () => {
     setModalUser(null);
   };
 
-  const filterAttendancesByDate = (attendances, date) => {
-    if (!attendances || attendances === null) {
+
+  const filterAttendancesByDate = (attendances, day) => {
+    if (!attendances || attendances.day === initialDate) {
       return [];
     }
 
     return attendances.filter((attendance) => {
-      return attendance.date && attendance.date.includes(date);
+      return attendance.day && attendance.day.includes(day);
     });
   };
 
@@ -85,7 +93,6 @@ const Employees = () => {
     const date = event.target.value;
     setSelectedDate(date);
   };
-
 
   return (
     <div>
@@ -115,6 +122,15 @@ const Employees = () => {
             type="search"
             placeholder="Search . . ."
             onChange={(e) => setQuery(e.target.value.toLowerCase())}
+          />
+        </div>
+
+        <div>
+          <input
+            type="month"
+            id="dateInput"
+            value={selectedDate}
+            onChange={handleDateChange}
           />
         </div>
 
@@ -152,34 +168,110 @@ const Employees = () => {
 
       {modalUser && (
         <div className="modaluser">
-          <h3>{modalUser.name}</h3>
-          <p>{modalUser.firstname}</p>
+          <h3 className="ModalUserName">
+            {modalUser.name}
+            <span> haqida ma'lumot</span>{" "}
+          </h3>
+          <br />
+          <div className="modalUserInfo">
+            <span className="modalUserInfoSpan">
+              <b className="modalUserInfoName">Name:</b> {modalUser.name}{" "}
+            </span>
+            <span className="modalUserInfoSpan">
+              <b className="modalUserInfoName">LastName:</b>{" "}
+              {modalUser.lastName}{" "}
+            </span>
+            <span className="modalUserInfoSpan">
+              <b className="modalUserInfoName">Passport ID:</b>{" "}
+              {modalUser.passportId}{" "}
+            </span>
+            <span className="modalUserInfoSpan">
+              <b className="modalUserInfoName">Position:</b>{" "}
+              {modalUser.position}{" "}
+            </span>
+            <span className="modalUserInfoSpan">
+              <b className="modalUserInfoName">Phone number:</b>{" "}
+              {modalUser.phone}{" "}
+            </span>
+            <span className="modalUserInfoSpan">
+              <b className="modalUserInfoName">Salary:</b> {modalUser.salary}{" "}
+            </span>
+            <span className="modalUserInfoSpan">
+              <b className="modalUserInfoName">Experience:</b>{" "}
+              {modalUser.experience}{" "}
+            </span>
+          </div>
+
           {selectedDate ? (
-            <>
-              <h4>Late Hours ({selectedDate}):</h4>
-              <ul>
+           <>
+              <h3 className="selectedDate">Attendance</h3>
+              <ul className="modalUserAttendanceContent">
                 {filterAttendancesByDate(
                   modalUser.attendances,
                   selectedDate
                 ).map((attendance, index) => (
-                  <li key={index}>{attendance.lateHours}</li>
+                  <div className="">
+                    <li className="ModalUserInfoAttendance" key={index}>
+                      <b>{index + 1}.</b>
+                      {attendance.lateHours}
+
+                      
+
+                      
+                      {attendance.isMainWork === true ? (
+                        <FcOk />
+                      ) : attendance.isMainWork === false ? (
+                        <GiCancel />
+                      ) : (
+                        ""
+                      )}
+
+
+                      <span>{attendance.extraWorkHours}</span>
+
+                      {attendance.day}
+                    </li>
+                  </div>
                 ))}
               </ul>
             </>
           ) : (
             <>
-              <h4>All Late Hours:</h4>
-              <ul>
+              <br />
+              <h3 className="ModalUserName">Attendance:</h3>
+              <ol>
                 {modalUser.attendances.map((attendance, index) => (
-                  <li key={index}>{attendance.lateHours}</li>
+                  <li className="ModalUserInfoAttendance" key={index}>
+                    <b>{index + 1}.</b>
+                    <span className="ModalUserAttendanceSpan">
+                      {attendance.lateHours}
+                    </span>
+                    <span className="ModalUserAttendanceSpan">
+                      {" "}
+                      {attendance.isMainWork === true ? (
+                        <FcOk />
+                      ) : attendance.isMainWork === false ? (
+                        <GiCancel />
+                      ) : (
+                        ""
+                      )}
+                    </span>
+                    <span className="ModalUserAttendanceSpan">
+                      {attendance.extraWorkHours}{" "}
+                    </span>
+                    <span className="ModalUserAttendanceSpan">
+                      {attendance.day}
+                    </span>
+                  </li>
                 ))}
-              </ul>
+              </ol>
             </>
           )}
-          <button onClick={closeModal}>Close Modal</button>
+          <button className="AttendanceEditCloseBtn" onClick={closeModal}>
+            Close Modal
+          </button>
         </div>
       )}
-
 
 
       <div className="statistics">

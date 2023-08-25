@@ -313,6 +313,7 @@ p.currentDate{
     width: 200px;
     display: flex;
     justify-content: space-between;
+    margin: 0;
   }
   .PdpInputPhoto{
     margin-top: 10px;
@@ -328,15 +329,4 @@ p.currentDate{
    
   }
 
-@media screen and (max-width: 400px) {
-.input__divBlue{
-  width: 400px;
-}
-.products{
-  width: 400px;
 
-}  
-.btnAddWhite{
-  margin-right: 20px;
-}
-}

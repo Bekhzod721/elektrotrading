@@ -20,6 +20,7 @@ import PdpAdmin from "../product price/PdpAdmin";
 import Login  from "../../login/Login";
 import LoginForm from "../../login/LoginForm";
 import {TbLogout2 } from "react-icons/tb";
+import{ResponsiveLogo} from "../../../../assets/image_2023-08-25_12-09-34.png"
 
 const AdminPage = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal holatini saqlash uchun useState()

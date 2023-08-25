@@ -117,6 +117,7 @@ td.thItem{
 .thItemDetails{
   width: 200px;
 }
+
 .thItemDeadline{
   width: 120px;
   display: flex;
@@ -131,6 +132,7 @@ td.thItem{
   /* border: solid 1px; */
   justify-content: space-between;
 }
+.thItem
 .action{
   margin-right: 10px;
   width: 80px;
@@ -163,7 +165,9 @@ td.trItem{
 .trItemAvans{
   width: 90px;
 }
-
+.thItemSalaryDetails{
+  width: 150px;
+}
 .trItemLateHours{
   width: 80px;
 }
@@ -968,6 +972,9 @@ svg{
   outline: none;
 
 }
+.ProductBtns{
+  margin-right: 50px;
+}
 .TextAreaDescription{
   font-size: 22px;
   width:240px !important ;
@@ -1002,11 +1009,20 @@ svg{
 .modalUserInfoName{
   color: black;
 }
+.selectedDate{
+  color: #173F77;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.modalUserAttendanceContent{
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
 .ModalUserInfoAttendance{
   width: 350px;
   display: flex;
   align-items: center;
-  justify-content: space-around; 
+  justify-content: space-between; 
   margin-top: 5px;
   margin-bottom: 5px;
 }
@@ -1017,99 +1033,10 @@ svg{
 
 
 /* Responsive Design */
-@media (max-width: 1450px) {
-  .container{
-    max-width: 1433px;
-  }
-  .th__title{
-    width: 1228px;
-  }
-  .tr__title{
-    width: 1228px;
-  }
-  .input__div{
-    width: 1228px;
-  }
-  .statistics{
-    width: 1228px;
-  }
-  .logo{
-    margin-left: 7px;
-  }
-  .sidebar{
-    width: 205px;
-  }
-  .sidebarLink{
-    margin-left: 10px;
-  }
-  .top_section{
-    width: 205px;
-  }
-  .link__text{
-    font-size: 20px;
-  }
-  .table{
-    width: 1000px;
-  }
-}
-@media (max-width: 1400px) {
-  .container{
-    width: 1380px ;
-  }
-  .th__title{
-    width: 1175px;
-  }
-  .tr__title{
-    width: 1175px;
-  }
-  .input__div{
-    width: 1175px;
-  }
-  .statistics{
-    width: 1175px;
-  }
-  table{
-    width: 500px;
-  }
-  .MainSidebar{
-    width: 700px;
-  }
-}
 
-@media screen and (max-width: 1390px) {
-  .container {
-    width: 1368px;
-  }
-  .th__title,
-  .tr__title,
-  .statistics,
-  .input__div {
-    width: 1160px;
-  }
-}
-@media screen and (max-width: 1380px) {
-  .container {
-    width: 1358px;
-  }
-  .th__title,
-  .tr__title,
-  .statistics,
-  .input__div {
-    width: 1150px;
-  }
-}
-@media screen and (max-width: 1370px) {
-  .container {
-    width: 1348px;
-  }
-  /* .table, */
-  .th__title,
-  .tr__title,
-  .statistics,
-  .input__div {
-    width: 1140px;
-  }
-}
+
+
+
 @media screen and (max-width: 1360px) {
   .container {
     width: 1338px;
@@ -1381,28 +1308,50 @@ svg{
   }
 .routerContainer{
   display: flex;
-  width: 499px;
+  width: 500px;
 }
-
+table{
+  width: 500px;
+}
+table.thead{
+  width: 500px;
+}
+table.tbody{
+  width: 500px;
+}
 .th__title{
   align-items: center;
+  padding: 10px;
 }
 .tr__title{
   align-items: center;
+  padding: 10px;
 }
 .thItemName , .trItemName{
   width: 80px;
 }
-.thItemName ,  .trItemPosition{
+.thItemPosition ,  .trItemPosition{
   width: 80px;
 }
 .thItemDescription , .trItemDescription{
   margin-left: 10px;
   width: 100px;
+  margin-right: 10px;
 }
 .thItemAmount , .trItemAmount{
   width: 60px;
   margin-right: 5px;
+}
+.thItemDetails{
+  width: 100px;
+}
+
+.trItemSalary{
+  width: 90px;
+
+}
+.thItemAvans , .trItemAvans{
+  width: 90px;
 }
 
 .thItemPrice , .trItemPrice{
@@ -1411,235 +1360,19 @@ svg{
 .thItemTotalPrice , .trItemTotalPrice{
   width: 90px;
 }
+.thItemExtraWork, .trItemExtraWork{
+  width: 75px;
+}
 .trItemBtns{
   width: 50px;
-}
-
-b{
-  font-size: 14px;
-}
-td{
-  font-size: 16px;
-}
-.profit{
-  font-size: 15px;
-}
-.spend{
-  font-size: 15px;
-}
-  .container {
-    width: 499px;
-  }
-  .th__title,
-  .tr__title,
-  .statistics {
-    width: 499px;
-  }
-  .input__div{
-    display: flex;
-    /* flex-direction: column; */
-    width: 499px;
-  }
-  .searchInput{
-    margin-left: 20px;
-    width: 150px;
-    font-size: 16px;
-  }
-  input{
-    font-size: 15px;
-    width: 150px;
-    margin: 0;
-  }
-  .inputDate{
-    width: 150px;
-    font-size: 15px;
-    margin-right: 20px;
-  }
-  .currentDateTime{
-    display: none;
-  }
-  .modals-content{
-    width: 480px;
-  }
-  .modalForm{
-    width: 450px;
-  }
-  .modalFormLabel{
-    width: 380px;
-    font-size: 20px;
-  }
-  .modal-content{
-    width: 480px;
-  }
-  .MainSidebar{
-    width: 450px;
-  }
-  .attendanceBtns{
-    width: 130px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .btnAdd, .btnEdit{
-    width: 60px;
-    margin: 0px;
-    margin-right: 15px;
-  }
-  .AddSalaryBtns{
-    width: 80px;
-    display: flex;
-    flex-direction: column;
-  }
-  .salaryDetails , .SalaryBtn{
-    margin-bottom: 5px;
-  }
-
-  .edit-btn{
-    margin: 0;
-  }
-  .deleteBtn{
-    margin: 0;
-  }
-  .input__divBlue{
-    width: 500px;
-  } 
-  .products{
-    width: 500px;
-  }
-  .productsItem{
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-  }
-  .pdpItem{
-    padding-left: 0px;
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-  }
-  .pdp{
-    display: flex;
-    flex-direction: column; 
-  }
-  .Pdp{
-    display: flex;
-    flex-direction: column;
-  }
-  .PdpListDetails{
-    margin-left: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
-
-  .pdpContainer{
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-
-   }
-   .productListDetails{
-    display: flex;
-    flex-direction: column;
-    
-   }
-   .PdpInformation{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   }
-   .PdpInputs{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 450px;
-   }
-   .PdpNumber{
-    margin-bottom: 20px;
-   }
-   .PdpInputs.div{
-    width: 250px;
-   }
-   .PdpInputPhoto{
-    width: 250px;
-   }
-   .PdpPrice{
-    font-size: 20px;
-   }
-   .pdpDescription{
-    font-size: 18px;
-    margin-bottom: 5px;
-   }
-   b{
-    font-size: 18px;
-   }
-}
-
-@media screen and (max-width: 400px) {
-  .sidebar{
-    display: none;
-  }
-.routerContainer{
-  display: flex;
-  max-width: 399px;
   margin: 0;
 }
 
-.finish{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.th__title{
-  align-items: center;
-}
-.tr__title{
-  align-items: center;
-}
-.thItemName , .trItemName{
-  width: 80px;
-}
-.thItemName ,  .trItemPosition{
-  width: 80px;
-}
-.thItemDescription , .trItemDescription{
-  margin-left: 10px;
-  width: 100px;
-}
-.thItemAmount , .trItemAmount{
-  width: 60px;
-  margin-right: 5px;
-}
-
-.thItemPrice , .trItemPrice{
-  width: 80px;
-}
-.thItemTotalPrice , .trItemTotalPrice{
-  width: 90px;
-}
-.thItemDetails{
-  width: 80px;
-}
-.trItemBtns{
-  width: 50px;
-}
-
-b{
-  font-size: 14px;
-}
-table.tbody{
-width: 400px;
-}
-table{
-  width: 400px;
-}
-thead{
-  width: 400px;
+.thItem.b{
+  font-size: 12px;
 }
 td{
-  font-size: 16px;
+  font-size: 14px;
 }
 .profit{
   font-size: 15px;
@@ -1648,33 +1381,26 @@ td{
   font-size: 15px;
 }
   .container {
-    max-width: 400px;
+    width: 499px;
   }
   .th__title,
   .tr__title,
   .statistics {
-    width: 400px;
+    width: 499px;
   }
   .input__div{
     display: flex;
     /* flex-direction: column; */
-    width: 400px;
-  }
-  .input__divBlue{
-    width: 400px;
-    
-  }
-  .products{
-    width: 400px;
+    width: 499px;
   }
   .searchInput{
     margin-left: 20px;
-    width: 100px;
+    width: 150px;
     font-size: 16px;
   }
   input{
     font-size: 15px;
-    width: 100px;
+    width: 150px;
     margin: 0;
   }
   .inputDate{
@@ -1685,30 +1411,62 @@ td{
   .currentDateTime{
     display: none;
   }
+  .modaluser{
+
+    width: 400px;
+    height: 400px;
+    overflow-y: auto;
+  }
+  .ModalUserName{
+    font-size: 20px;
+    color: #173F77;
+  }
+  
+  .modalUserInfo{
+    width: 350px;
+  }
+  
+  .modalUserInfoSpan{
+    font-size: 16px;
+    color: #173F77;
+  }
+  .modalUserInfoName{
+    color: black;
+  }
+  .selectedDate{
+    color: #173F77;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .ModalUserInfoAttendance{
+    width: 350px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .ModalUserAttendanceSpan{
+    font-size: 16px;
+  }
   .modals-content{
-    width: 380px;
+    width: 480px;
   }
   .modalForm{
-    width: 380px;
+    width: 450px;
   }
   .modalFormLabel{
-    width: 370px;
+    width: 380px;
     font-size: 20px;
   }
-
   .modal-content{
-    width: 360px;
+    width: 480px;
   }
   .MainSidebar{
-    width: 390px;
+    width: 450px;
   }
   .attendanceBtns{
     width: 130px;
     display: flex;
     justify-content: space-between;
-  }
-  .btnEdit{
-    /* margin-righ: 10px; */
   }
   .btnAdd, .btnEdit{
     width: 60px;
@@ -1731,14 +1489,13 @@ td{
     margin: 0;
   }
   .input__divBlue{
-    width: 400px;
+    width: 500px;
   } 
   .products{
-    width: 400px;
-
+    width: 500px;
   }
   .productsItem{
-    width: 400px;
+    width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1746,7 +1503,7 @@ td{
   }
   .pdpItem{
     padding-left: 0px;
-    width: 400px;
+    width: 500px;
     display: flex;
     flex-direction: column;
   }
@@ -1759,7 +1516,6 @@ td{
     flex-direction: column;
   }
   .PdpListDetails{
-    width: 350px;
     margin-left: 30px;
     display: flex;
     flex-direction: column;
@@ -1767,7 +1523,7 @@ td{
     }
 
   .pdpContainer{
-    width: 400px;
+    width: 500px;
     display: flex;
     flex-direction: column;
 
@@ -1778,7 +1534,6 @@ td{
     
    }
    .PdpInformation{
-    width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1787,7 +1542,7 @@ td{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 370px;
+    width: 450px;
    }
    .PdpNumber{
     margin-bottom: 20px;
@@ -1805,11 +1560,12 @@ td{
     font-size: 18px;
     margin-bottom: 5px;
    }
-   b{
+   /* b{
     font-size: 18px;
-   }
-  
+   } */
 }
+
+
 
 
 
