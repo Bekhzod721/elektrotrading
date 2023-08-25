@@ -20,7 +20,7 @@ import PdpAdmin from "../product price/PdpAdmin";
 import Login  from "../../login/Login";
 import LoginForm from "../../login/LoginForm";
 import {TbLogout2 } from "react-icons/tb";
-import{ResponsiveLogo} from "../../../../assets/image_2023-08-25_12-09-34.png"
+import ResponsiveLogo from "../../../../assets/image_2023-08-25_12-09-34.png"
 
 const AdminPage = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal holatini saqlash uchun useState()
@@ -105,7 +105,8 @@ const AdminPage = ({ children }) => {
     <Router>
          <div className="routerContainer">
          <button className="hamburgerBtn" onClick={openModal}><GiHamburgerMenu className="GiHamburgerMenu"/></button>
-         <h2 className="routerContainerHeading">ELektroTrading</h2>
+          <img className="routerContainerHeading" src={ResponsiveLogo} alt="SiteLogo" />
+         {/* <h2 className="routerContainerHeading">ELektroTrading</h2> */}
          </div> 
       <AdminSidebar>        
         <Routes>     

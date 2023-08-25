@@ -15,6 +15,7 @@ import Pdp from '../productPrice/Pdp'
 import { Link, NavLink } from "react-router-dom";
 import {GiHamburgerMenu}  from "react-icons/gi"
 import {TbLogout2 } from "react-icons/tb"
+import ResponsiveLogo from "../../../../assets/image_2023-08-25_12-09-34.png"
 
 const OwnerPage = ({ children }) => {
   const handleLogout = () => {
@@ -93,7 +94,7 @@ const OwnerPage = ({ children }) => {
       <BrowserRouter >
          <div className="routerContainer">
             <button className="hamburgerBtn" onClick={openModal}><GiHamburgerMenu className="GiHamburgerMenu"/></button>
-            <h2 className="routerContainerHeading">ELektroTrading</h2>
+            <img className="routerContainerHeading" src={ResponsiveLogo} alt="SiteLogo" />
          </div> 
         <OwnerSidebar >
           <Routes>

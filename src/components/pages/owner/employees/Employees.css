@@ -1303,11 +1303,16 @@ svg{
 }
 
 @media screen and (max-width: 500px) {
+
+  .dashboard{
+    width: 500px;
+  }
   .sidebar{
     display: none;
   }
 .routerContainer{
   display: flex;
+  justify-content: space-between;
   width: 500px;
 }
 table{
@@ -1402,6 +1407,7 @@ td{
     font-size: 15px;
     width: 150px;
     margin: 0;
+    margin-right: 20px;
   }
   .inputDate{
     width: 150px;
